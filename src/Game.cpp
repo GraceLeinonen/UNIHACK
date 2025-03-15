@@ -2,6 +2,7 @@
 
 #include "Game.hpp"
 #include "House.hpp"
+#include "Habits.hpp"
 
 Game::Game()
 {

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <filesystem>
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -26,16 +27,17 @@ class House : public Engine::State {
     sf::Texture background;
     sf::Sprite background_object;
 
-    //create a vector of images
-    // int numPlayers = 4; //! HOW DO WE KNOW THE NUMBER OF PLAYERS?
-    // std::vector<Image> images;
-
+    //create images
     Image image1;
-    Image image2;
+    Image image2;    
 
     // buttons selected and pressed
     int m_isButtonSelected = 0;
     int m_isButtonPressed = 0;
+
+    std::string folderPath = "assets/textures"; // Replace with the path to your folder
+    std::string targetFileName = "image.jpg"; // Replace with the desired file name
+    std::vector<std::filesystem::path> matchingFiles; // To store matched files
 
     public:
     House(std::shared_ptr<Context> &context);

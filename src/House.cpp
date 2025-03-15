@@ -47,6 +47,20 @@ void House::Init() {
     image2.resizeTo(240.0f);
     image2.setPosition(480.0f, 150.0f);
 
+    // Iterate through the directory
+    for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
+        // Check if the entry is a file
+        if (std::filesystem::is_regular_file(entry.status())) {
+            // Extract the file name
+            std::string fileName = entry.path().filename().string();
+
+            // Check if the file matches the target name
+            if (fileName == targetFileName) {
+                matchingFiles.push_back(entry.path());
+            }
+        }
+    }
+
 }
 
 void House::ProcessInput() {

@@ -1,12 +1,14 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "State.hpp"
 #include "Game.hpp"
+#include "Image.hpp"
 
 class House : public Engine::State {
 
@@ -23,6 +25,13 @@ class House : public Engine::State {
     //add background image
     sf::Texture background;
     sf::Sprite background_object;
+
+    //create a vector of images
+    // int numPlayers = 4; //! HOW DO WE KNOW THE NUMBER OF PLAYERS?
+    // std::vector<Image> images;
+
+    Image image1;
+    Image image2;
 
     // buttons selected and pressed
     int m_isButtonSelected = 0;

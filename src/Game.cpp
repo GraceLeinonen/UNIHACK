@@ -9,7 +9,7 @@ Game::Game()
     m_context=std::make_shared<Context>(); //since m_context is a shared pointer, use std::make_shared
     
     //1-Create a new window
-    m_context->m_window->create(sf::VideoMode(960, 640), "Jurassic Duo: Saving the World!", sf::Style::Close);
+    m_context->m_window->create(sf::VideoMode(960, 520), "ItTakesAVillage", sf::Style::Close);
     //style defines how the window resizes. Styles::Close: the window cannot resize or maximise.
     
     //2-Push the first state (which is Main Menu) to the state manager

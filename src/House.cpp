@@ -2,7 +2,6 @@
 
 #include "House.hpp"
 #include <SFML/Window/Event.hpp>
-#include "tinyfiledialogs.hpp"
 
 #include <iostream>
 
@@ -37,7 +36,16 @@ void House::Init() {
     addImageButton2_object.setPosition(480.f, 390.f);
     addImageButton2_object.setScale(4.286, 4.286);
 
+    //*3 load and position images
+    image1.loadFromFile("assets/textures/image1.jpg");
+    image1.cropToSquare();
+    image1.resizeTo(240.0f);
+    image1.setPosition(240.0f, 150.0f);
 
+    image2.loadFromFile("assets/textures/image2.jpg");
+    image2.cropToSquare();
+    image2.resizeTo(240.0f);
+    image2.setPosition(480.0f, 150.0f);
 
 }
 
@@ -87,13 +95,11 @@ void House::ProcessInput() {
 void House::Update(const sf::Time& deltaTime) {
 
     if (m_isButtonPressed == 1) {
-        // Open file dialog when button is clicked 
-        const char* filters[] = {"*.png", "*.jpg", "*.jpeg", "*.bmp"}; 
-        const char* filePath = tinyfd_openFileDialog( "Upload an Image", "", 4, filters, "Image files (*.png, *.jpg, *.jpeg, *.bmp)", 0 );
+        
     }
 
     if (m_isButtonPressed == 2) {
-        std::cout << "Second button pressed" << std::endl;
+    
     }
 
 }
@@ -104,6 +110,8 @@ void House::Draw() {
     m_context->m_window->draw(background_object);
     m_context->m_window->draw(addImageButton1_object);
     m_context->m_window->draw(addImageButton2_object);
+    image1.draw(m_context->m_window);
+    image2.draw(m_context->m_window);
     m_context->m_window->display();
 
 }

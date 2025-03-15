@@ -8,14 +8,13 @@ Gameplay::Gameplay(std::shared_ptr<Context> &context)
 
   worldRect = sf::IntRect(-1000, -1000, 2000, 2000);
 
-	tileTex.loadFromFile("assets/testTile.png");
+	tileTex.loadFromFile("assets/texture/testTile.png");
   tile = sf::Sprite(tileTex);
   
-	charTex.loadFromFile("assets/testChar.png");
-	// charTex.loadFromFile("assets/testAnim.png");
+	charTex.loadFromFile("assets/texture/testAnim.png");
   character = sf::Sprite(charTex);
   character.setOrigin(0.5f * 6.0f * sf::Vector2f(8.0f, 8.0f));
-  // charAnim = Animator(&character, 6 * sf::Vector2i(8, 8), 0, 250);
+  charAnim = Animator(&character, 6 * sf::Vector2i(8, 8), 0, 250);
 }
 
 Gameplay::~Gameplay()
@@ -35,7 +34,7 @@ void Gameplay::ProcessInput()
 		switch (e.type) 
 		{
 		case sf::Event::Closed: 
-      m_context->m_states->PopCurrent();
+      m_context->m_states->PopAll();
       return;
 
       case sf::Event::KeyPressed:
@@ -45,13 +44,13 @@ void Gameplay::ProcessInput()
           m_context->m_states->PopCurrent();
             break;
           default:
-            // Keys::getInstance()->addKey(e.key.code);
+            Keys::getInstance()->addKey(e.key.code);
             break;
         }
         break;
 
       case sf::Event::KeyReleased:
-        // Keys::getInstance()->removeKey(e.key.code);
+        Keys::getInstance()->removeKey(e.key.code);
         break;
 
 		default:
@@ -63,24 +62,24 @@ void Gameplay::ProcessInput()
 void Gameplay::Update(const sf::Time &deltaTime)
 {
 
-  // sf::Vector2f move = sf::Vector2f(
-  //   KEY_HELD(sf::Keyboard::D) - KEY_HELD(sf::Keyboard::A), 
-  //   KEY_HELD(sf::Keyboard::S) - KEY_HELD(sf::Keyboard::W));
+  sf::Vector2f move = sf::Vector2f(
+    KEY_HELD(sf::Keyboard::D) - KEY_HELD(sf::Keyboard::A), 
+    KEY_HELD(sf::Keyboard::S) - KEY_HELD(sf::Keyboard::W));
 
-  // character.move((float)DELTA * move);
+  character.move((float)deltaTime.asMilliseconds() * move);
 
-  // if (move == sf::Vector2f(0.0f, 0.0f) && isCharMoving)
-  // {
-  //   charAnim.setAnimation(0, 250);
-  //   isCharMoving = false;
-  // }
-  // else if (move != sf::Vector2f(0.0f, 0.0f) && !isCharMoving)
-  // {
-  //   charAnim.setAnimation(1, 100);
-  //   isCharMoving = true;
-  // }
+  if (move == sf::Vector2f(0.0f, 0.0f) && isCharMoving)
+  {
+    charAnim.setAnimation(0, 250);
+    isCharMoving = false;
+  }
+  else if (move != sf::Vector2f(0.0f, 0.0f) && !isCharMoving)
+  {
+    charAnim.setAnimation(1, 100);
+    isCharMoving = true;
+  }
 
-  // charAnim.update();
+  charAnim.update(deltaTime);
 
   // Clip character within world bounds
   sf::Vector2f pos = character.getPosition();
@@ -95,7 +94,7 @@ void Gameplay::Update(const sf::Time &deltaTime)
   WINDOW->setView(view);
 
   // Clock::getInstance()->update();
-  // Keys::getInstance()->update();
+  Keys::getInstance()->update(deltaTime);
 }
 
 void Gameplay::Draw()

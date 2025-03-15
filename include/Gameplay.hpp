@@ -6,6 +6,8 @@
 
 #include "State.hpp"
 #include "Game.hpp"
+#include "Keys.hpp"
+#include "Animator.hpp"
 
 #define WINDOW m_context->m_window
 
@@ -42,7 +44,7 @@ private:
   sf::IntRect worldRect;
   sf::Sprite tile;
   sf::Sprite character;
-  // Animator charAnim;
+  Animator charAnim;
 };
 
 #endif

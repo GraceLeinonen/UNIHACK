@@ -1,0 +1,1 @@
+/usr/bin/g++  -g   CMakeFiles/itTakesAVillage.out.dir/src/Program.cpp.o CMakeFiles/itTakesAVillage.out.dir/src/main.cpp.o  -o ../bin/itTakesAVillage.out  -lsfml-graphics -lsfml-window -lsfml-system 

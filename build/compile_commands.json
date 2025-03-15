@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/root/UNIHACK/build",
+  "command": "/usr/bin/g++   -I/root/UNIHACK/include  -g   -std=gnu++2a -o CMakeFiles/itTakesAVillage.out.dir/src/Program.cpp.o -c /root/UNIHACK/src/Program.cpp",
+  "file": "/root/UNIHACK/src/Program.cpp"
+},
+{
+  "directory": "/root/UNIHACK/build",
+  "command": "/usr/bin/g++   -I/root/UNIHACK/include  -g   -std=gnu++2a -o CMakeFiles/itTakesAVillage.out.dir/src/main.cpp.o -c /root/UNIHACK/src/main.cpp",
+  "file": "/root/UNIHACK/src/main.cpp"
+}
+]

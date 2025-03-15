@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Program.hpp
+SFML/Graphics.hpp
+-
+
+/root/UNIHACK/src/Program.cpp
+Program.hpp
+/root/UNIHACK/src/Program.hpp
+
+/root/UNIHACK/src/main.cpp
+Program.hpp
+/root/UNIHACK/src/Program.hpp
+

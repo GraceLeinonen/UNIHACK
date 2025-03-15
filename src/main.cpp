@@ -1,15 +1,11 @@
-#include "Program.hpp"
+#include <iostream>
+#include <time.h>
+#include "Game.hpp"
 
 int main()
 {
-  Program program;
+    Game game;
+    game.Run();
 
-  while (!program.hasTerminated())
-  {
-    program.events();
-    program.update();
-    program.render();
-  }
-
-  return 0;
+    return 0;
 }

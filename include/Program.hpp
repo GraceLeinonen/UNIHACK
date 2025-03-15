@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "Animation.hpp"
 #include "Clock.hpp"
 #include "Keys.hpp"
 
@@ -51,10 +52,7 @@ private:
 	sf::View view;
 
   // The following varaibles are for testing purposes only
-  bool wPressed = false;
-  bool sPressed = false;
-  bool dPressed = false;
-  bool aPressed = false;
+  bool isCharMoving = false;
 
   sf::Texture tileTex;
   sf::Texture charTex;
@@ -62,6 +60,7 @@ private:
   sf::IntRect worldRect;
   sf::Sprite tile;
   sf::Sprite character;
+  Animator charAnim;
 };
 
 

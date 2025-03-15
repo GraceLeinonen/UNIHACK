@@ -94,7 +94,7 @@ void Program::update()
 
   sf::Vector2f move = sf::Vector2f(dPressed - aPressed, sPressed - wPressed);
 
-  character.move((500.0f / 60.0f) * move);
+  character.move((float)DELTA * move);
 
   // Clip character within world bounds
   sf::Vector2f pos = character.getPosition();
@@ -107,6 +107,8 @@ void Program::update()
 
   view.setCenter(pos);
   window.setView(view);
+
+  Clock::getInstance()->update();
 }
 
 void Program::render()

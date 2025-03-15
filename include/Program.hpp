@@ -2,6 +2,9 @@
 #define Program_HPP
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
+#include "Clock.hpp"
 
 /// @brief Top level class responsible for handling the main program loop
 class Program

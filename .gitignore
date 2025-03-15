@@ -1,0 +1,12 @@
+# Executables
+*.exe
+*.out
+*.app
+
+# Directories
+backups
+build
+CMakeFiles/
+.cache/
+.trash
+.vscode/

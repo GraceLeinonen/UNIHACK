@@ -7,6 +7,7 @@
 
 #include "State.hpp"
 #include "Game.hpp"
+#include "Gameplay.hpp"
 
 //Define other useful simple structures for each state
 struct TextButtonStates

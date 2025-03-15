@@ -184,20 +184,24 @@ void MainMenu::Update(const sf::Time &deltaTime)
     }
     else if (exitButtonStates.isSelected)
     {
-        exitButton.setFillColor(sf::Color::Wh);
+        exitButton.setFillColor(sf::Color::White);
     }
 
     if (signInButtonStates.isPressed)
     {
         //The game starts. Go to Play State
         //m_context->m_states->Add(std::make_unique<Stage1>(m_context), true);
-        m_context->m_states->PopAll();
+
+        // Hijacking signin button because there is no play button
+        m_context->m_states->Add(std::make_unique<Gameplay>(m_context));
+        signInButtonStates.isPressed = false;
     }
     else if (instructionsButtonStates.isPressed)
     {
         //Go to Settings State
         //m_context->m_states->Add(std::make_unique<Instructions>(m_context), true);
-        m_context->m_states->PopAll();
+
+        // m_context->m_states->PopAll();
     }
     else if (exitButtonStates.isPressed) //if exit button is pressed, have to close the window
     {

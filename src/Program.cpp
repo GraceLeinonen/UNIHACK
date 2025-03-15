@@ -44,41 +44,14 @@ void Program::events()
           case sf::Keyboard::Escape:
             state = State::terminated;
             break;
-          case sf::Keyboard::W:
-            wPressed = true;
-            break;
-          case sf::Keyboard::S:
-            sPressed = true;
-            break;
-          case sf::Keyboard::D:
-            dPressed = true;
-            break;
-          case sf::Keyboard::A:
-            aPressed = true;
-            break;
           default:
+            Keys::getInstance()->addKey(e.key.code);
             break;
         }
         break;
 
       case sf::Event::KeyReleased:
-        switch (e.key.code)
-        {
-          case sf::Keyboard::W:
-            wPressed = false;
-            break;
-          case sf::Keyboard::S:
-            sPressed = false;
-            break;
-          case sf::Keyboard::D:
-            dPressed = false;
-            break;
-          case sf::Keyboard::A:
-            aPressed = false;
-            break;
-          default:
-            break;
-        }
+        Keys::getInstance()->removeKey(e.key.code);
         break;
 
 		default:
@@ -92,7 +65,9 @@ void Program::update()
   if (hasTerminated())
     return;
 
-  sf::Vector2f move = sf::Vector2f(dPressed - aPressed, sPressed - wPressed);
+  sf::Vector2f move = sf::Vector2f(
+    KEY_HELD(sf::Keyboard::D) - KEY_HELD(sf::Keyboard::A), 
+    KEY_HELD(sf::Keyboard::S) - KEY_HELD(sf::Keyboard::W));
 
   character.move((float)DELTA * move);
 
@@ -109,6 +84,7 @@ void Program::update()
   window.setView(view);
 
   Clock::getInstance()->update();
+  Keys::getInstance()->update();
 }
 
 void Program::render()

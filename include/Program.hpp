@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Clock.hpp"
+#include "Keys.hpp"
 
 /// @brief Top level class responsible for handling the main program loop
 class Program

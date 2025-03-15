@@ -1,4 +1,4 @@
-#include "Animation.hpp"
+#include "Animator.hpp"
 
 Animator::Animator(sf::Sprite *sprite, sf::Vector2i frameDim, int initialAnimation, int frameDuration)
   :

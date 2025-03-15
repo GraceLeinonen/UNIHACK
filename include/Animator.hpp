@@ -1,5 +1,5 @@
-#ifndef ANIMATION_HPP
-#define ANIMATION_HPP
+#ifndef ANIMATOR_HPP
+#define ANIMATOR_HPP
 
 #include <SFML/Graphics.hpp>
 

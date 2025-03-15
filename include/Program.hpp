@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#include "Animation.hpp"
+#include "Animator.hpp"
 #include "Clock.hpp"
 #include "Keys.hpp"
 

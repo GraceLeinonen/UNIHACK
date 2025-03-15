@@ -7,6 +7,7 @@
 class Program
 {
 public:
+  /// @brief The various states the program can be in
   enum class State
   {
     gameplay,
@@ -28,6 +29,13 @@ public:
   /// @return `true` if the program is no longer running, `false` otherwise
   bool hasTerminated();
 
+  /// @brief Returns the correction needed to clip some entity within a boundary
+  /// @param centre - The world position of the entity
+  /// @param padding - Some padding representing how much space the entity takes up from its central position
+  /// @param bounds - The boundary that the entity will be clipped within
+  /// @return The correction vector that can be applied to the given centre position to clip the entity within the boundary
+  sf::Vector2f clipWithinBounds(sf::Vector2f centre, sf::Vector2f padding, sf::IntRect bounds);
+
 private:
   /// @brief The current status of the program
   State state = State::terminated;
@@ -37,6 +45,12 @@ private:
 
 	/// @brief The view that represents the camera of the program
 	sf::View view;
+
+  // The following varaibles are for testing purposes only
+  bool wPressed = false;
+  bool sPressed = false;
+  bool dPressed = false;
+  bool aPressed = false;
 
   sf::Texture tileTex;
   sf::Texture charTex;

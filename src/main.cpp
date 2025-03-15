@@ -1,6 +1,15 @@
-#include <iostream>
+#include "Program.hpp"
 
 int main()
 {
-  std::cout << "Test\n";
+  Program program;
+
+  while (!program.hasTerminated())
+  {
+    program.events();
+    program.update();
+    program.render();
+  }
+
+  return 0;
 }

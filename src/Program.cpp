@@ -12,6 +12,16 @@ Program::Program()
 
 	view = window.getDefaultView();
 
+  worldRect = sf::IntRect(-1000, -1000, 2000, 2000);
+
+	tileTex.loadFromFile("assets/testTile.png");
+  tile = sf::Sprite(tileTex);
+  
+
+	charTex.loadFromFile("assets/testChar.png");
+  character = sf::Sprite(charTex);
+  character.setOrigin(0.5f * (sf::Vector2f)charTex.getSize());
+
   state = State::gameplay;
 }
 
@@ -50,6 +60,17 @@ void Program::render()
     return;
 
 	window.clear({255, 255, 255});
+
+  for (int y = worldRect.top; y < worldRect.top + worldRect.height; y += tileTex.getSize().y)
+  {
+    for (int x = worldRect.left; x < worldRect.left + worldRect.width; x += tileTex.getSize().x)
+    {
+      tile.setPosition(sf::Vector2f(x, y));
+      window.draw(tile);
+    }
+  }
+
+  window.draw(character);
 
   window.display();
 }

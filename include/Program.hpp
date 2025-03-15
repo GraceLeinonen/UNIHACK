@@ -37,6 +37,13 @@ private:
 
 	/// @brief The view that represents the camera of the program
 	sf::View view;
+
+  sf::Texture tileTex;
+  sf::Texture charTex;
+
+  sf::IntRect worldRect;
+  sf::Sprite tile;
+  sf::Sprite character;
 };
 
 

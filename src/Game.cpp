@@ -2,6 +2,8 @@
 
 #include "Game.hpp"
 #include "MainMenu.hpp"
+#include "SignIn.hpp"
+#include <iostream>
 
 Game::Game()
 {
@@ -28,23 +30,25 @@ void Game::Run()
     {
         timeSinceLastFrame += clock.restart(); //timeSinceLastFrame is our deltatime
         //clock.restart(): rest the clock back to zero and return the time elapsed since the clock started
-
         while (timeSinceLastFrame > TIME_PER_FRAME) //Use TIME_PER_FRAME, a constant data member of class Game
         {
             timeSinceLastFrame -= TIME_PER_FRAME;//gets back to zero if a frame has elapsed
-            
             m_context->m_states->ProcessStateChange();
+            std::cout<<"Game.cpp: m_context->m_states->ProcessStateChange();"<<std::endl;
+            std::cout<< "Game.cpp: after ProcessStateChange(): value of m_context->m_states->IsEmpty(): " << m_context->m_states->IsEmpty()<<std::endl;
             //the process state change happens before the update cycle begins
-
             if (!m_context->m_states->IsEmpty())
             {
                 m_context->m_states->GetCurrent()->ProcessInput();//allow the current state to handle all events like key pressed and mouse clicks
                 m_context->m_states->GetCurrent()->Update(TIME_PER_FRAME);//let the current state do calculations and update itself. Update() function means: given the event in Input() function, what will happen? inputting parameter as time_per_frame
                 m_context->m_states->GetCurrent()->Draw();//all the sprites and texts are drawn on the window in the current state
+                std::cout<<"Game.cpp: after m_context->m_states->GetCurrent()->Draw();"<<std::endl;
+                std::cout<< "Game.cpp: value of m_context->m_states->IsEmpty(): " << m_context->m_states->IsEmpty()<<std::endl;
             }
             else
             {
                 m_context->m_window->close(); //when the stack of state is empty already we just close the window
+                std::cout<<"Game.cpp: m_context->m_window->close();"<<std::endl;
             }
         }
     }

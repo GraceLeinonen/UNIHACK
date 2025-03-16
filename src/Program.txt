@@ -1,18 +1,17 @@
 #include "Program.hpp"
 
-Program::Program()
+Program::Program(std::shared_ptr<Context> &context)
 {
-  sf::Vector2i windowDim = 60 * sf::Vector2i(16, 9);
-	window.create(sf::VideoMode(windowDim.x, windowDim.y), "It Takes A Village", sf::Style::Close);
-
+  m_context= context;
+  
   sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-  window.setPosition(sf::Vector2i((desktop.width - window.getSize().x) / 2, (desktop.height - window.getSize().y) / 2));
+  m_context->m_window->setPosition(sf::Vector2i((desktop.width - window.getSize().x) / 2, (desktop.height - window.getSize().y) / 2));
 
-	window.setKeyRepeatEnabled(false);
+	m_context->m_window->setKeyRepeatEnabled(false);
 
-  window.setVerticalSyncEnabled(true);
+  m_context->m_window->setVerticalSyncEnabled(true);
 
-	view = window.getDefaultView();
+	view = m_context->m_window->getDefaultView();
 
   worldRect = sf::IntRect(-1000, -1000, 2000, 2000);
 
@@ -25,6 +24,13 @@ Program::Program()
 
   state = State::gameplay;
 }
+
+
+void Init() override;
+void ProcessInput() override;
+void Update(const sf::Time& deltaTime) override;
+void Draw() override;
+
 
 void Program::events()
 {

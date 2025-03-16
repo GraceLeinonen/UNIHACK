@@ -24,7 +24,7 @@ namespace Engine
         ~StateMan();
 
         //*1-add a new state to the stack of states.
-        void Add(std::unique_ptr<State> toAdd, bool replace = false);//take two parameteres, pointer to state object being added, the second is a boolean to control whether we want to simply add a new state or do we want to replace the current one with the new one. default; false, since most of the timem we just push a new state to the stack
+        void Add(std::unique_ptr<State> toAdd, bool replace = false);//take two parameteres, pointer to state object being added, the second is a boolean to control whether we want to simply add a new state or do we want to replace the current one with the new one. default; false, since most of the time we just push a new state to the stack
         
         //*2-remove the current state from the state stack
         void PopCurrent();

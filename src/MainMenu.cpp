@@ -1,5 +1,7 @@
 //include the hpp files of all states
 #include "MainMenu.hpp"
+#include "SignIn.hpp"
+#include "Instructions.hpp"
 #include <iostream>
 #include <string>
 
@@ -12,11 +14,11 @@ MainMenu::MainMenu(std::shared_ptr<Context> &context)
     signInButtonStates.isSelected=false;
     signInButtonStates.isPressed=false;
 
-    signInButtonStates.isSelected=false;
-    signInButtonStates.isPressed=false;
+    instructionsButtonStates.isSelected=false;
+    instructionsButtonStates.isPressed=false;
 
-    signInButtonStates.isSelected=false;
-    signInButtonStates.isPressed=false;
+    exitButtonStates.isSelected=false;
+    exitButtonStates.isPressed=false;
 
 }
 
@@ -38,6 +40,8 @@ void MainMenu::display_instructions(AssetID font_name_enum, sf::Text& text, std:
 
 void MainMenu::Init()
 {
+    std::cout<<"void MainMenu::Init()"<<std::endl;
+
     //add font to assets
     m_context->m_assets->AddFont(FONT1, "assets/fonts/SuperShape-PV9qE.ttf"); 
     m_context->m_assets->AddFont(FONT2, "assets/fonts/Lato-BoldItalic.ttf");
@@ -107,6 +111,7 @@ bool MainMenu::isMouseOverSprite(sf::Sprite sprite)
 
 void MainMenu::ProcessInput() //handle the selection and highlighting of the buttons
 {
+    std::cout<<"void MainMenu::ProcessInput()"<<std::endl;
     sf::Event event;
     while (m_context->m_window->pollEvent(event))
     {
@@ -161,6 +166,9 @@ void MainMenu::ProcessInput() //handle the selection and highlighting of the but
 
 void MainMenu::Update(const sf::Time &deltaTime)
 {
+    std::cout<<"MainMenu.cpp: void MainMenu::Update"<<std::endl;
+    std::cout<<"MainMenu.cpp: instructionsButtonStates.isPressed"<<instructionsButtonStates.isPressed<<std::endl;
+    std::cout<<"MainMenu.cpp: exitButtonStates.isPressed"<<exitButtonStates.isPressed<<std::endl;
     if (signInButtonStates.isSelected) 
     {
        signInButton.setFillColor(sf::Color::Yellow);
@@ -182,22 +190,20 @@ void MainMenu::Update(const sf::Time &deltaTime)
     {
         exitButton.setFillColor(sf::Color::Yellow);
     }
-    else if (exitButtonStates.isSelected)
+    else if (!exitButtonStates.isSelected)
     {
-        exitButton.setFillColor(sf::Color::Wh);
+        exitButton.setFillColor(sf::Color::White);
     }
 
     if (signInButtonStates.isPressed)
     {
-        //The game starts. Go to Play State
-        //m_context->m_states->Add(std::make_unique<Stage1>(m_context), true);
-        m_context->m_states->PopAll();
+        //GoTo SignIn
+        m_context->m_states->Add(std::make_unique<SignIn>(m_context), true);
     }
     else if (instructionsButtonStates.isPressed)
     {
-        //Go to Settings State
-        //m_context->m_states->Add(std::make_unique<Instructions>(m_context), true);
-        m_context->m_states->PopAll();
+        //Go to Instructions
+        m_context->m_states->Add(std::make_unique<Instructions>(m_context), true);
     }
     else if (exitButtonStates.isPressed) //if exit button is pressed, have to close the window
     {
@@ -207,7 +213,7 @@ void MainMenu::Update(const sf::Time &deltaTime)
 
 void MainMenu::Draw()
 {
-    
+    std::cout<<"void MainMenu::Draw()"<<std::endl;
     m_context->m_window->clear();
     m_context->m_window->draw(background_object);
     m_context->m_window->draw(gameTitle);
@@ -215,4 +221,5 @@ void MainMenu::Draw()
     m_context->m_window->draw(instructionsButton);
     m_context->m_window->draw(exitButton);
     m_context->m_window->display();
+    std::cout<<"void MainMenu::Draw(): finished (after m_context->m_window->display();)"<<std::endl;
 }

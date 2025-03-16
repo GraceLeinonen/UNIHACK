@@ -8,27 +8,24 @@
 #include "State.hpp"
 #include "Game.hpp"
 
-class MainMenu : public Engine::State
+class SignIn : public Engine::State
 {
 private:
     std::shared_ptr<Context> m_context;
 
-    sf::Text gameTitle;
-    sf::Text signInButton;
-    sf::Text instructionsButton;
-    sf::Text exitButton;
-    TextButtonStates signInButtonStates;
-    TextButtonStates instructionsButtonStates;
-    TextButtonStates exitButtonStates;
+    sf::Text mainMenuButton;
+    TextButtonStates mainMenuButtonStates;
 
     //add background image
     sf::Texture background;
     sf::Sprite background_object;
 
+    //add 4 sprites for 4 players
+
 
 public:
-    MainMenu(std::shared_ptr<Context> &context);
-    ~MainMenu();
+    SignIn(std::shared_ptr<Context> &context);
+    ~SignIn();
 
     
     void Init() override;
@@ -37,7 +34,7 @@ public:
     void Draw() override;
 
     //other functions
-    void display_instructions(AssetID font_name_enum, sf::Text& text, std::string title, int fontSize, float x_pos, float y_pos);
+    void display_text(AssetID font_name_enum, sf::Text& text, std::string title, int fontSize, float x_pos, float y_pos);
     bool isMouseOverText(sf::Text text);
     bool isMouseOverSprite(sf::Sprite sprite);
 

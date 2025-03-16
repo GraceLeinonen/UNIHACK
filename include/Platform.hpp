@@ -1,5 +1,5 @@
-#ifndef GAMEPLAY_HPP
-#define GAMEPLAY_HPP
+#ifndef Platform_HPP
+#define Platform_HPP
 
 #include <memory>
 #include <SFML/Graphics.hpp>
@@ -11,11 +11,11 @@
 
 #define WINDOW m_context->m_window
 
-class Gameplay : public Engine::State
+class Platform : public Engine::State
 {
 public:
-  Gameplay(std::shared_ptr<Context>& context);
-  ~Gameplay() override;
+  Platform(std::shared_ptr<Context>& context);
+  ~Platform() override;
 
   void Init() override;
   void ProcessInput() override;

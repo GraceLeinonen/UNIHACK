@@ -193,7 +193,7 @@ void MainMenu::Update(const sf::Time &deltaTime)
         //m_context->m_states->Add(std::make_unique<Stage1>(m_context), true);
 
         // Hijacking signin button because there is no play button
-        m_context->m_states->Add(std::make_unique<Gameplay>(m_context));
+        m_context->m_states->Add(std::make_unique<Platform>(m_context));
         signInButtonStates.isPressed = false;
     }
     else if (instructionsButtonStates.isPressed)

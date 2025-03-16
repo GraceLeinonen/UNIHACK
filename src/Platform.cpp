@@ -1,6 +1,6 @@
-#include "Gameplay.hpp"
+#include "Platform.hpp"
 
-Gameplay::Gameplay(std::shared_ptr<Context> &context)
+Platform::Platform(std::shared_ptr<Context> &context)
   :
   m_context(context)
 {
@@ -17,15 +17,15 @@ Gameplay::Gameplay(std::shared_ptr<Context> &context)
   charAnim = Animator(&character, 6 * sf::Vector2i(8, 8), 0, 250);
 }
 
-Gameplay::~Gameplay()
+Platform::~Platform()
 {
   WINDOW->setView(WINDOW->getDefaultView());
 }
 
-void Gameplay::Init()
+void Platform::Init()
 {}
 
-void Gameplay::ProcessInput()
+void Platform::ProcessInput()
 {
 	sf::Event e;
 	
@@ -59,7 +59,7 @@ void Gameplay::ProcessInput()
 	}
 }
 
-void Gameplay::Update(const sf::Time &deltaTime)
+void Platform::Update(const sf::Time &deltaTime)
 {
 
   sf::Vector2f move = sf::Vector2f(
@@ -97,7 +97,7 @@ void Gameplay::Update(const sf::Time &deltaTime)
   Keys::getInstance()->update(deltaTime);
 }
 
-void Gameplay::Draw()
+void Platform::Draw()
 {
 	WINDOW->clear({255, 255, 255});
 
@@ -115,7 +115,7 @@ void Gameplay::Draw()
   WINDOW->display();
 }
 
-sf::Vector2f Gameplay::clipWithinBounds(sf::Vector2f centre, sf::Vector2f padding, sf::IntRect bounds)
+sf::Vector2f Platform::clipWithinBounds(sf::Vector2f centre, sf::Vector2f padding, sf::IntRect bounds)
 {
   sf::Vector2f correction(0, 0);
 

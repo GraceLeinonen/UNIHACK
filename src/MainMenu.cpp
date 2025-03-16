@@ -40,8 +40,6 @@ void MainMenu::display_instructions(AssetID font_name_enum, sf::Text& text, std:
 
 void MainMenu::Init()
 {
-    std::cout<<"void MainMenu::Init()"<<std::endl;
-
     //add font to assets
     m_context->m_assets->AddFont(FONT1, "assets/fonts/SuperShape-PV9qE.ttf"); 
     m_context->m_assets->AddFont(FONT2, "assets/fonts/Lato-BoldItalic.ttf");
@@ -111,7 +109,6 @@ bool MainMenu::isMouseOverSprite(sf::Sprite sprite)
 
 void MainMenu::ProcessInput() //handle the selection and highlighting of the buttons
 {
-    std::cout<<"void MainMenu::ProcessInput()"<<std::endl;
     sf::Event event;
     while (m_context->m_window->pollEvent(event))
     {
@@ -166,9 +163,6 @@ void MainMenu::ProcessInput() //handle the selection and highlighting of the but
 
 void MainMenu::Update(const sf::Time &deltaTime)
 {
-    std::cout<<"MainMenu.cpp: void MainMenu::Update"<<std::endl;
-    std::cout<<"MainMenu.cpp: instructionsButtonStates.isPressed"<<instructionsButtonStates.isPressed<<std::endl;
-    std::cout<<"MainMenu.cpp: exitButtonStates.isPressed"<<exitButtonStates.isPressed<<std::endl;
     if (signInButtonStates.isSelected) 
     {
        signInButton.setFillColor(sf::Color::Yellow);
@@ -214,7 +208,6 @@ void MainMenu::Update(const sf::Time &deltaTime)
 
 void MainMenu::Draw()
 {
-    std::cout<<"void MainMenu::Draw()"<<std::endl;
     m_context->m_window->clear();
     m_context->m_window->draw(background_object);
     m_context->m_window->draw(gameTitle);
@@ -222,5 +215,4 @@ void MainMenu::Draw()
     m_context->m_window->draw(instructionsButton);
     m_context->m_window->draw(exitButton);
     m_context->m_window->display();
-    std::cout<<"void MainMenu::Draw(): finished (after m_context->m_window->display();)"<<std::endl;
 }

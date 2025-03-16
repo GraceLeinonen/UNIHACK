@@ -43,7 +43,6 @@ void SignIn::display_text(AssetID font_name_enum, sf::Text& text, std::string ti
 
 void SignIn::setTexture_addPosition( sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos)
 {
-    std::cout<<"We are setting texture and add position to sprite of file: "<<file_path<<std::endl;
     texture.loadFromFile(file_path); 
     sprite.setTexture(texture); //or background_object=sf::Sprite(texture);
     sprite.setOrigin(sprite.getLocalBounds().width / 2,
@@ -53,7 +52,6 @@ void SignIn::setTexture_addPosition( sf::Sprite &sprite, sf::Texture &texture, s
 
 void SignIn::Init()
 {
-    std::cout<<"void SignIn::Init()"<<std::endl;
     //add new font to assets (already in mainMenu)
     //m_context->m_assets->AddFont(FONT1, "assets/fonts/SuperShape-PV9qE.ttf"); 
     //m_context->m_assets->AddFont(FONT2, "assets/fonts/Lato-BoldItalic.ttf");
@@ -93,7 +91,6 @@ bool SignIn::isMouseOverSprite(sf::Sprite sprite)
 
 void SignIn::ProcessInput() //handle the selection and highlighting of the buttons
 {
-    std::cout<<"void SignIn::ProcessInput()"<<std::endl;
     sf::Event event;
     while (m_context->m_window->pollEvent(event))
     {
@@ -176,8 +173,6 @@ void SignIn::ProcessInput() //handle the selection and highlighting of the butto
 
 void SignIn::Update(const sf::Time &deltaTime)
 {
-    std::cout<<"void SignIn::Update()"<<std::endl;
-
     //main button
     if (mainMenuButtonStates.isSelected) 
     {
@@ -267,13 +262,10 @@ void SignIn::Update(const sf::Time &deltaTime)
 
 void SignIn::Draw()
 {
-    std::cout<<"void SignIn::Draw()"<<std::endl;
     m_context->m_window->clear();
     m_context->m_window->draw(background_object);
     m_context->m_window->draw(signin_grace);
-    std::cout<<"void SignIn::Draw():signin_grace "<<std::endl;
     m_context->m_window->draw(signin_michelle);
-    std::cout<<"void SignIn::Draw():signin_michelle "<<std::endl;
     m_context->m_window->draw(signin_kate);
     m_context->m_window->draw(signin_noah);
     m_context->m_window->draw(mainMenuButton);

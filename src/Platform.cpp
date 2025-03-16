@@ -6,15 +6,16 @@ Platform::Platform(std::shared_ptr<Context> &context, std::string name)
 {
 	view = WINDOW->getDefaultView();
 
-  worldRect = sf::IntRect(-1000, -1000, 2000, 2000);
-
-	tileTex.loadFromFile("assets/texture/testTile.png");
-  tile = sf::Sprite(tileTex);
+	worldTex.loadFromFile("assets/texture/map.png");
+  worldRect = sf::IntRect(sf::Vector2i(0, 0), 6 * (sf::Vector2i)worldTex.getSize());
+  worldSprite = sf::Sprite(worldTex);
+  worldSprite.setScale(sf::Vector2f(6.0f, 6.0f));
   
 	charTex.loadFromFile("assets/texture/" + name + ".png");
   character = sf::Sprite(charTex);
   character.setOrigin(0.5f * (sf::Vector2f)charTex.getSize());
   character.setScale({6.0f, 6.0f});
+  character.setPosition(0.5f * sf::Vector2f(worldRect.getSize()));
   // charAnim = Animator(&character, 0, 0, 250);
 }
 
@@ -67,7 +68,7 @@ void Platform::Update(const sf::Time &deltaTime)
     KEY_HELD(sf::Keyboard::D) - KEY_HELD(sf::Keyboard::A), 
     KEY_HELD(sf::Keyboard::S) - KEY_HELD(sf::Keyboard::W));
 
-  character.move((float)deltaTime.asMilliseconds() * move);
+  character.move(0.5f * (float)deltaTime.asMilliseconds() * move);
 
   // if (move == sf::Vector2f(0.0f, 0.0f) && isCharMoving)
   // {
@@ -102,14 +103,7 @@ void Platform::Draw()
 {
 	WINDOW->clear({255, 255, 255});
 
-  for (int y = worldRect.top; y < worldRect.top + worldRect.height; y += tileTex.getSize().y)
-  {
-    for (int x = worldRect.left; x < worldRect.left + worldRect.width; x += tileTex.getSize().x)
-    {
-      tile.setPosition(sf::Vector2f(x, y));
-      WINDOW->draw(tile);
-    }
-  }
+  WINDOW->draw(worldSprite);
 
   WINDOW->draw(character);
 

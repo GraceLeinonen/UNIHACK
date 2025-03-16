@@ -35,14 +35,13 @@ private:
 	/// @brief The view that represents the camera of the program
 	sf::View view;
 
-  // The following varaibles are for testing purposes only
   bool isCharMoving = false;
 
-  sf::Texture tileTex;
+  sf::Texture worldTex;
   sf::Texture charTex;
 
   sf::IntRect worldRect;
-  sf::Sprite tile;
+  sf::Sprite worldSprite;
   sf::Sprite character;
   Animator charAnim;
 };

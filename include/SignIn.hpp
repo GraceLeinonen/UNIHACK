@@ -21,7 +21,15 @@ private:
     sf::Sprite background_object;
 
     //add 4 sprites for 4 players
-
+    sf::Texture texture1, texture2, texture3, texture4;
+    sf::Sprite signin_grace;
+    TextButtonStates signin_graceStates;
+    sf::Sprite signin_michelle;
+    TextButtonStates signin_michelleStates;
+    sf::Sprite signin_kate;
+    TextButtonStates signin_kateStates;
+    sf::Sprite signin_noah;
+    TextButtonStates signin_noahStates;
 
 public:
     SignIn(std::shared_ptr<Context> &context);
@@ -37,5 +45,6 @@ public:
     void display_text(AssetID font_name_enum, sf::Text& text, std::string title, int fontSize, float x_pos, float y_pos);
     bool isMouseOverText(sf::Text text);
     bool isMouseOverSprite(sf::Sprite sprite);
+    void setTexture_addPosition( sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos);
 
 };

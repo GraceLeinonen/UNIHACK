@@ -1,4 +1,6 @@
 #include "Platform.hpp"
+#include "MainMenu.hpp"
+#include "YellowHouse.cpp"
 
 Platform::Platform(std::shared_ptr<Context> &context, std::string name)
   :
@@ -142,6 +144,9 @@ void Platform::Update(const sf::Time &deltaTime)
   {
     std::cout << "House " << houseIndex << " was interacted with!\n";
     // OPEN HOUSE INTERFACE
+    WINDOW->setView(WINDOW->getDefaultView());
+    m_context->m_states->Add(std::make_unique<YellowHouse>(m_context), false);
+
   }
 
   // Clock::getInstance()->update();

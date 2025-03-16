@@ -7,30 +7,26 @@
 
 #include "State.hpp"
 #include "Game.hpp"
-#include "Platform.hpp"
 
-class MainMenu : public Engine::State
+class YellowHouse : public Engine::State
 {
 private:
     std::shared_ptr<Context> m_context;
 
-    sf::Texture texture1, texture2, texture3;
-    sf::Sprite signInButton;
-    sf::Sprite instructionsButton;
-    sf::Sprite exitButton;
-
-    TextButtonStates signInButtonStates;
-    TextButtonStates instructionsButtonStates;
-    TextButtonStates exitButtonStates;
+    sf::Texture mainMenuTexture;
+    sf::Sprite mainMenuButton;
+    TextButtonStates mainMenuButtonStates;
 
     //add background image
     sf::Texture background;
     sf::Sprite background_object;
 
+    //add 4 sprites for 4 players
+
 
 public:
-    MainMenu(std::shared_ptr<Context> &context);
-    ~MainMenu();
+    YellowHouse(std::shared_ptr<Context> &context);
+    ~YellowHouse();
 
     
     void Init() override;

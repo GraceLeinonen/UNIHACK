@@ -32,7 +32,6 @@ void Instructions::setTexture_addPosition(sf::Sprite &sprite, sf::Texture &textu
 
 void Instructions::Init()
 {
-    std::cout<<"void SignIn::Init()"<<std::endl;
     //add new font to assets (already in mainMenu)
     //m_context->m_assets->AddFont(FONT1, "assets/fonts/SuperShape-PV9qE.ttf"); 
     //m_context->m_assets->AddFont(FONT2, "assets/fonts/Lato-BoldItalic.ttf");
@@ -48,7 +47,6 @@ void Instructions::Init()
 
 void Instructions::ProcessInput() //handle the selection and highlighting of the buttons
 {
-    std::cout<<"void SignIn::ProcessInput()"<<std::endl;
     sf::Event event;
     while (m_context->m_window->pollEvent(event))
     {
@@ -77,7 +75,6 @@ void Instructions::ProcessInput() //handle the selection and highlighting of the
 
 void Instructions::Update(const sf::Time &deltaTime)
 {
-    std::cout<<"void SignIn::Update()"<<std::endl;
     if (mainMenuButtonStates.isSelected) 
     {
        mainMenuButton.setScale(1.2,1.2);
@@ -97,7 +94,6 @@ void Instructions::Update(const sf::Time &deltaTime)
 
 void Instructions::Draw()
 {
-    std::cout<<"void SignIn::Draw()"<<std::endl;
     m_context->m_window->clear();
     m_context->m_window->draw(background_object);
     m_context->m_window->draw(mainMenuButton);

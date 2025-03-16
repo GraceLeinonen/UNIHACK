@@ -6,16 +6,46 @@ Platform::Platform(std::shared_ptr<Context> &context, std::string name)
 {
 	view = WINDOW->getDefaultView();
 
-  worldRect = sf::IntRect(-1000, -1000, 2000, 2000);
-
-	tileTex.loadFromFile("assets/texture/testTile.png");
-  tile = sf::Sprite(tileTex);
+	worldTex.loadFromFile("assets/texture/map/map.png");
+  worldRect = sf::IntRect(sf::Vector2i(0, 0), (int)SCALE * (sf::Vector2i)worldTex.getSize());
+  worldSprite = sf::Sprite(worldTex);
+  worldSprite.setScale(SCALE_VEC);
   
-	charTex.loadFromFile("assets/texture/" + name + ".png");
+	charTex.loadFromFile("assets/texture/characters/" + name + ".png");
   character = sf::Sprite(charTex);
   character.setOrigin(0.5f * (sf::Vector2f)charTex.getSize());
-  character.setScale({6.0f, 6.0f});
+  character.setScale(SCALE_VEC);
+  character.setPosition(0.5f * sf::Vector2f(worldRect.getSize()));
   // charAnim = Animator(&character, 0, 0, 250);
+
+  shadowTex.loadFromFile("assets/texture/characters/shadow.png");
+  shadow = sf::Sprite(shadowTex);
+  shadow.setOrigin(0.5f * (sf::Vector2f)shadowTex.getSize());
+  shadow.setScale(SCALE_VEC);
+
+  std::vector<std::string> colours = {"blue", "purple", "red", "yellow"};
+  std::vector<sf::Vector2f> positions = 
+  {
+    {145.0f, 78.0f}, 
+    {85.0f, 190.0f}, 
+    {333.0f, 240.0f}, 
+    {393.0f, 70.0f}
+  };
+  houses.reserve(colours.size());
+
+  for (int i = 0; i < colours.size(); i++)
+  {
+    std::string houseState = i % 2 == 0 ? "bad" : "good";
+    houses.push_back({});
+    House& house = houses.back();
+    house.tex.loadFromFile("assets/texture/map/house_" + colours[i] + "_" + houseState + ".png");
+    house.sprite.setTexture(house.tex);
+    house.sprite.setScale(SCALE_VEC);
+    house.sprite.setPosition(SCALE * positions[i]);
+    house.sprite.setOrigin(sf::Vector2f(
+      0.5f * house.tex.getSize().x,
+      house.tex.getSize().y));
+  }
 }
 
 Platform::~Platform()
@@ -67,7 +97,7 @@ void Platform::Update(const sf::Time &deltaTime)
     KEY_HELD(sf::Keyboard::D) - KEY_HELD(sf::Keyboard::A), 
     KEY_HELD(sf::Keyboard::S) - KEY_HELD(sf::Keyboard::W));
 
-  character.move((float)deltaTime.asMilliseconds() * move);
+  character.move(0.5f * (float)deltaTime.asMilliseconds() * move);
 
   // if (move == sf::Vector2f(0.0f, 0.0f) && isCharMoving)
   // {
@@ -85,14 +115,34 @@ void Platform::Update(const sf::Time &deltaTime)
   // Clip character within world bounds
   sf::Vector2f pos = character.getPosition();
 
-  pos += clipWithinBounds(pos, 6.0f * 0.5f * (sf::Vector2f)charTex.getSize(), worldRect);
+  pos += clipWithinBounds(pos, SCALE * 0.5f * (sf::Vector2f)charTex.getSize(), worldRect);
   character.setPosition(pos);
+
+  shadow.setPosition(pos + sf::Vector2f(0.0f, 0.5f * character.getGlobalBounds().height));
 
   // Clip camera within world bounds
   pos += clipWithinBounds(pos, 0.5f * view.getSize(), worldRect);
 
   view.setCenter(pos);
   WINDOW->setView(view);
+
+
+  houseIndex = NONE;
+  for (int i = 0; i < houses.size(); i++)
+  {
+    houses[i].sprite.setColor(sf::Color(255, 255, 255));
+    if (houses[i].sprite.getGlobalBounds().intersects(character.getGlobalBounds()))
+    {
+      houseIndex = i;
+      houses[i].sprite.setColor(sf::Color(200, 250, 200));
+    }
+  }
+
+  if (houseIndex != NONE && KEY_FRESH(sf::Keyboard::Enter))
+  {
+    std::cout << "House " << houseIndex << " was interacted with!\n";
+    // OPEN HOUSE INTERFACE
+  }
 
   // Clock::getInstance()->update();
   Keys::getInstance()->update(deltaTime);
@@ -102,14 +152,12 @@ void Platform::Draw()
 {
 	WINDOW->clear({255, 255, 255});
 
-  for (int y = worldRect.top; y < worldRect.top + worldRect.height; y += tileTex.getSize().y)
-  {
-    for (int x = worldRect.left; x < worldRect.left + worldRect.width; x += tileTex.getSize().x)
-    {
-      tile.setPosition(sf::Vector2f(x, y));
-      WINDOW->draw(tile);
-    }
-  }
+  WINDOW->draw(worldSprite);
+
+  for (auto& house : houses)
+    WINDOW->draw(house.sprite);
+
+  WINDOW->draw(shadow);
 
   WINDOW->draw(character);
 

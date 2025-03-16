@@ -26,5 +26,3 @@ struct TextButtonStates
     bool isSelected;
     bool isPressed;
 };
-
-

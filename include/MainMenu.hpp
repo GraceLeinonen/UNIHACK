@@ -13,7 +13,6 @@ class MainMenu : public Engine::State
 {
 private:
     std::shared_ptr<Context> m_context;
-
     sf::Texture texture1, texture2, texture3;
     sf::Sprite signInButton;
     sf::Sprite instructionsButton;
@@ -27,12 +26,19 @@ private:
     sf::Texture background;
     sf::Sprite background_object;
 
+    bool m_isPlayButtonSelected;
+    bool m_isPlayButtonPressed;
+
+    bool m_isInstructionsButtonSelected;
+    bool m_isInstructionsButtonPressed;
+
+    bool m_isExitButtonSelected;
+    bool m_isExitButtonPressed;
 
 public:
     MainMenu(std::shared_ptr<Context> &context);
     ~MainMenu();
 
-    
     void Init() override;
     void ProcessInput() override;
     void Update(const sf::Time& deltaTime) override;
@@ -40,5 +46,4 @@ public:
 
     bool isMouseOverSprite(std::shared_ptr<Context> &m_context, sf::Sprite sprite);
     void setTexture_addPosition(sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos);
-
 };

@@ -10,7 +10,6 @@ enum AssetID
 {
     FONT1 = 0, //we want the implicit converstion of AssetID to int
     FONT2 = 1
-
 };
 
 struct Context //pass the Context structure to each State so each state can handle asset_manager, state_manager and render_window
@@ -40,5 +39,4 @@ public:
 private:
     std::shared_ptr<Context> m_context; 
     const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f); // the time that each frame takes. a constant time object called TIME_PER_FRAME; equal to 1/60 seconds per frame (the program has 60 frames per second)
-
 };

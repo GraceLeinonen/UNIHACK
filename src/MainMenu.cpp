@@ -120,7 +120,6 @@ void MainMenu::ProcessInput() //handle the selection and highlighting of the but
             {
                 exitButtonStates.isSelected=false;
             } 
-            
         }
     }
 }

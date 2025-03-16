@@ -25,7 +25,7 @@ void Game::Run()
 
     sf::Clock clock; //the clock immediately after being constructed
     sf::Time timeSinceLastFrame = sf::Time::Zero; //initialise the timeSinceLastFrame first with Time::Zero
-    
+
     while (m_context->m_window->isOpen())
     {
         timeSinceLastFrame += clock.restart(); //timeSinceLastFrame is our deltatime

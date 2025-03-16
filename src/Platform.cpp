@@ -18,6 +18,11 @@ Platform::Platform(std::shared_ptr<Context> &context, std::string name)
   character.setPosition(0.5f * sf::Vector2f(worldRect.getSize()));
   // charAnim = Animator(&character, 0, 0, 250);
 
+  shadowTex.loadFromFile("assets/texture/characters/shadow.png");
+  shadow = sf::Sprite(shadowTex);
+  shadow.setOrigin(0.5f * (sf::Vector2f)shadowTex.getSize());
+  shadow.setScale(SCALE_VEC);
+
   std::vector<std::string> colours = {"blue", "purple", "red", "yellow"};
   std::vector<sf::Vector2f> positions = 
   {
@@ -94,23 +99,6 @@ void Platform::Update(const sf::Time &deltaTime)
 
   character.move(0.5f * (float)deltaTime.asMilliseconds() * move);
 
-  houseIndex = NONE;
-  for (int i = 0; i < houses.size(); i++)
-  {
-    houses[i].sprite.setColor(sf::Color(255, 255, 255));
-    if (houses[i].sprite.getGlobalBounds().intersects(character.getGlobalBounds()))
-    {
-      houseIndex = i;
-      houses[i].sprite.setColor(sf::Color(200, 250, 200));
-    }
-  }
-
-  if (houseIndex != NONE && KEY_FRESH(sf::Keyboard::Enter))
-  {
-    std::cout << "House " << houseIndex << " was interacted with!\n";
-    // OPEN HOUSE INTERFACE
-  }
-
   // if (move == sf::Vector2f(0.0f, 0.0f) && isCharMoving)
   // {
   //   charAnim.setAnimation(0, 250);
@@ -130,11 +118,31 @@ void Platform::Update(const sf::Time &deltaTime)
   pos += clipWithinBounds(pos, SCALE * 0.5f * (sf::Vector2f)charTex.getSize(), worldRect);
   character.setPosition(pos);
 
+  shadow.setPosition(pos + sf::Vector2f(0.0f, 0.5f * character.getGlobalBounds().height));
+
   // Clip camera within world bounds
   pos += clipWithinBounds(pos, 0.5f * view.getSize(), worldRect);
 
   view.setCenter(pos);
   WINDOW->setView(view);
+
+
+  houseIndex = NONE;
+  for (int i = 0; i < houses.size(); i++)
+  {
+    houses[i].sprite.setColor(sf::Color(255, 255, 255));
+    if (houses[i].sprite.getGlobalBounds().intersects(character.getGlobalBounds()))
+    {
+      houseIndex = i;
+      houses[i].sprite.setColor(sf::Color(200, 250, 200));
+    }
+  }
+
+  if (houseIndex != NONE && KEY_FRESH(sf::Keyboard::Enter))
+  {
+    std::cout << "House " << houseIndex << " was interacted with!\n";
+    // OPEN HOUSE INTERFACE
+  }
 
   // Clock::getInstance()->update();
   Keys::getInstance()->update(deltaTime);
@@ -148,6 +156,8 @@ void Platform::Draw()
 
   for (auto& house : houses)
     WINDOW->draw(house.sprite);
+
+  WINDOW->draw(shadow);
 
   WINDOW->draw(character);
 

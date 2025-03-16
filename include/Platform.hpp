@@ -54,10 +54,12 @@ private:
 
   sf::Texture worldTex;
   sf::Texture charTex;
+  sf::Texture shadowTex;
 
   sf::IntRect worldRect;
   sf::Sprite worldSprite;
   sf::Sprite character;
+  sf::Sprite shadow;
   Animator charAnim;
 };
 

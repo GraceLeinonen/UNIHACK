@@ -1,5 +1,4 @@
 #include "SignIn.hpp"
-#include "PlatMTest.hpp"
 #include "MainMenu.hpp"
 #include <SFML/Window/Event.hpp>
 #include <iostream>
@@ -204,7 +203,7 @@ void SignIn::Update(const sf::Time &deltaTime)
         if (signin_graceStates.isPressed)
         {
             //go to platform under this user
-            m_context->m_states->Add(std::make_unique<PlatMTest>(m_context), true);
+            m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
         }
     }
     else if (!signin_graceStates.isSelected) 
@@ -220,7 +219,7 @@ void SignIn::Update(const sf::Time &deltaTime)
         if (signin_michelleStates.isPressed)
         {
             //go to platform under this user
-            m_context->m_states->Add(std::make_unique<PlatMTest>(m_context), true);
+            m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
         }
     }
     else if (!signin_michelleStates.isSelected) 
@@ -236,7 +235,7 @@ void SignIn::Update(const sf::Time &deltaTime)
         if (signin_noahStates.isPressed)
         {
             //go to platform under this user
-            m_context->m_states->Add(std::make_unique<PlatMTest>(m_context), true);
+            m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
         }
     }
     else if (!signin_noahStates.isSelected) 
@@ -252,7 +251,7 @@ void SignIn::Update(const sf::Time &deltaTime)
         if (signin_kateStates.isPressed)
         {
             //go to platform under this user
-            m_context->m_states->Add(std::make_unique<PlatMTest>(m_context), true);
+            m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
         }
     }
     else if (!signin_kateStates.isSelected) 

@@ -3,6 +3,8 @@
 
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <iostream>
 
 #include "State.hpp"
 #include "Game.hpp"
@@ -10,9 +12,19 @@
 #include "Animator.hpp"
 
 #define WINDOW m_context->m_window
+#define SCALE 6.0f
+#define SCALE_VEC (sf::Vector2f(SCALE, SCALE))
+#define NONE -1
 
 class Platform : public Engine::State
 {
+private:
+  struct House
+  {
+    sf::Texture tex;
+    sf::Sprite sprite;
+  };
+
 public:
   Platform(std::shared_ptr<Context>& context, std::string name);
   ~Platform() override;
@@ -36,6 +48,9 @@ private:
 	sf::View view;
 
   bool isCharMoving = false;
+
+  std::vector<House> houses;
+  int houseIndex = NONE;
 
   sf::Texture worldTex;
   sf::Texture charTex;

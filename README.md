@@ -1,5 +1,2 @@
-# UNIHACK
-Repository for UNIHACK competition
-
-questions
-1. why don't we need to specify bin/assets but just assets/ when loading images and fonts?
+# UNIHACK - It Takes a Village
+Welcome to It Takes a Village, a gamified habit tracking app with an emphasis on community and sharing your progress with others! In this game you are placed within a village along with your friends or family, where the state of the village depends on you as a group sticking to your habits. Each house is themed to a specific habit, and interacting with it allows you to view the photos of everyone contributing to that habit. You can also upload your own photos, but miss a day, and the house will fall into disrepair.

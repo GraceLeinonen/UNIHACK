@@ -10,6 +10,8 @@
 #include "Game.hpp"
 #include "Keys.hpp"
 #include "Animator.hpp"
+#include "House.hpp"
+#include "Habits.hpp"
 
 #define WINDOW m_context->m_window
 #define SCALE 6.0f
@@ -19,10 +21,11 @@
 class Platform : public Engine::State
 {
 private:
-  struct House
+  struct HouseSprite
   {
     sf::Texture tex;
     sf::Sprite sprite;
+    std::string habit;
   };
 
 public:
@@ -49,7 +52,7 @@ private:
 
   bool isCharMoving = false;
 
-  std::vector<House> houses;
+  std::vector<HouseSprite> houses;
   int houseIndex = NONE;
 
   sf::Texture worldTex;

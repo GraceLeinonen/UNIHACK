@@ -52,7 +52,7 @@ class House : public Engine::State {
     std::vector<std::string> imageFiles;
 
     public:
-    House(std::shared_ptr<Context> &context);
+    House(std::shared_ptr<Context> &context, Habits habit);
     ~House();
 
     void Init() override;

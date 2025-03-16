@@ -3,7 +3,9 @@
 #include "House.hpp"
 #include <SFML/Window/Event.hpp>
 
-House::House(std::shared_ptr<Context> &context)
+House::House(std::shared_ptr<Context> &context, Habits habit)
+  :
+  habit(habit)
 {
     m_context = context;
     m_isButtonSelected = 0;

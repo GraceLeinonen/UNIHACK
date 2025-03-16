@@ -24,6 +24,7 @@ Platform::Platform(std::shared_ptr<Context> &context, std::string name)
   shadow.setScale(SCALE_VEC);
 
   std::vector<std::string> colours = {"blue", "purple", "red", "yellow"};
+  std::vector<std::string> habitNames = {"brushTeeth", "exercise", "cookMeal", "journalling"};
   std::vector<sf::Vector2f> positions = 
   {
     {145.0f, 78.0f}, 
@@ -37,14 +38,17 @@ Platform::Platform(std::shared_ptr<Context> &context, std::string name)
   {
     std::string houseState = i % 2 == 0 ? "bad" : "good";
     houses.push_back({});
-    House& house = houses.back();
+    HouseSprite& house = houses.back();
     house.tex.loadFromFile("assets/texture/map/house_" + colours[i] + "_" + houseState + ".png");
+
     house.sprite.setTexture(house.tex);
     house.sprite.setScale(SCALE_VEC);
     house.sprite.setPosition(SCALE * positions[i]);
     house.sprite.setOrigin(sf::Vector2f(
       0.5f * house.tex.getSize().x,
       house.tex.getSize().y));
+
+    house.habit = habitNames[i];
   }
 }
 
@@ -140,8 +144,8 @@ void Platform::Update(const sf::Time &deltaTime)
 
   if (houseIndex != NONE && KEY_FRESH(sf::Keyboard::Enter))
   {
-    std::cout << "House " << houseIndex << " was interacted with!\n";
-    // OPEN HOUSE INTERFACE
+    std::cout << "House " << houses[houseIndex].habit << " was interacted with!\n";
+    m_context->m_states->Add(std::make_unique<House>(m_context, Habits(houses[houseIndex].habit)));
   }
 
   // Clock::getInstance()->update();

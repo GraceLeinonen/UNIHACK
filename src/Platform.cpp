@@ -1,6 +1,6 @@
 #include "Platform.hpp"
 #include "MainMenu.hpp"
-#include "YellowHouse.cpp"
+#include "YellowHouse.hpp"
 
 Platform::Platform(std::shared_ptr<Context> &context, std::string name)
   :

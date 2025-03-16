@@ -29,27 +29,19 @@ SignIn::~SignIn()
 {
 }
 
-void SignIn::display_text(AssetID font_name_enum, sf::Text& text, std::string title, int fontSize, float x_pos, float y_pos)
+bool SignIn::isMouseOverSprite(std::shared_ptr<Context> &m_context, sf::Sprite sprite)
 {
-    
-    text.setFont(m_context->m_assets->GetFont(font_name_enum));
-    text.setString(title);
-    text.setFillColor(sf::Color::White);
-    text.setOrigin(text.getLocalBounds().width / 2,
-                           text.getLocalBounds().height / 2);
-    text.setPosition(x_pos,y_pos);
-    text.setCharacterSize(fontSize);
-}
-
-void SignIn::setTexture_addPosition( sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos)
+    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
+    return sprite.getGlobalBounds().contains(mousePos.x,mousePos.y);
+};
+void SignIn::setTexture_addPosition(sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos)
 {
-    std::cout<<"We are setting texture and add position to sprite of file: "<<file_path<<std::endl;
     texture.loadFromFile(file_path); 
     sprite.setTexture(texture); //or background_object=sf::Sprite(texture);
     sprite.setOrigin(sprite.getLocalBounds().width / 2,
-                           sprite.getLocalBounds().height / 2);
+                        sprite.getLocalBounds().height / 2);
     sprite.setPosition(x_pos,y_pos);
-}
+};
 
 void SignIn::Init()
 {
@@ -63,32 +55,14 @@ void SignIn::Init()
     background_object=sf::Sprite(background);
     
     float horizontal_position = m_context->m_window->getSize().x / 2;
-    float vertical_position = m_context->m_window->getSize().y / 2;
+    float vertical_position = m_context->m_window->getSize().y / 2+25.0f;
 
-    setTexture_addPosition(signin_grace,texture1, "assets/texture/signin_grace.png",horizontal_position-400.0f,vertical_position);
-    setTexture_addPosition(signin_michelle,texture2,"assets/texture/signin_michelle.png",horizontal_position-150.0f,vertical_position);
-    setTexture_addPosition(signin_kate,texture3,"assets/texture/signin_kate.png",horizontal_position+150.0f,vertical_position);
-    setTexture_addPosition(signin_noah,texture4,"assets/texture/signin_noah.png",horizontal_position+400.0f,vertical_position); 
+    setTexture_addPosition(signin_grace,texture1, "assets/texture/signin_grace.png",horizontal_position-300.0f,vertical_position);
+    setTexture_addPosition(signin_michelle,texture2,"assets/texture/signin_michelle.png",horizontal_position-100.0f,vertical_position);
+    setTexture_addPosition(signin_kate,texture3,"assets/texture/signin_kate.png",horizontal_position+100.0f,vertical_position);
+    setTexture_addPosition(signin_noah,texture4,"assets/texture/signin_noah.png",horizontal_position+300.0f,vertical_position); 
 
-    // Display mainmenuButton
-    display_text(FONT2,
-                        mainMenuButton,
-                        "Go Back to Main Menu",
-                        50,
-                        m_context->m_window->getSize().x / 2 -100.0f,
-                        m_context->m_window->getSize().y - 40.0f);
-}
-
-bool SignIn::isMouseOverText(sf::Text text)
-{
-    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
-    return text.getGlobalBounds().contains(mousePos.x,mousePos.y);
-}
-
-bool SignIn::isMouseOverSprite(sf::Sprite sprite)
-{
-    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
-    return sprite.getGlobalBounds().contains(mousePos.x,mousePos.y);
+    setTexture_addPosition(mainMenuButton,mainMenuTexture,"assets/texture/instructions_mainmenu_button.png",horizontal_position,m_context->m_window->getSize().y-70.0f); 
 }
 
 void SignIn::ProcessInput() //handle the selection and highlighting of the buttons
@@ -103,7 +77,7 @@ void SignIn::ProcessInput() //handle the selection and highlighting of the butto
         }
         else 
         {
-            if (isMouseOverText(mainMenuButton))
+            if (isMouseOverSprite(m_context,mainMenuButton))
             {
                 mainMenuButtonStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -111,13 +85,13 @@ void SignIn::ProcessInput() //handle the selection and highlighting of the butto
                     mainMenuButtonStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverText(mainMenuButton))
+            else if (!isMouseOverSprite(m_context,mainMenuButton))
             {
                 mainMenuButtonStates.isSelected=false;
             }
 
             //grace
-            if (isMouseOverSprite(signin_grace))
+            if (isMouseOverSprite(m_context,signin_grace))
             {
                 signin_graceStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -125,13 +99,13 @@ void SignIn::ProcessInput() //handle the selection and highlighting of the butto
                     signin_graceStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverSprite(signin_grace))
+            else if (!isMouseOverSprite(m_context,signin_grace))
             {
                 signin_graceStates.isSelected=false;
             }
 
             //michelle
-            if (isMouseOverSprite(signin_michelle))
+            if (isMouseOverSprite(m_context,signin_michelle))
             {
                 signin_michelleStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -139,13 +113,13 @@ void SignIn::ProcessInput() //handle the selection and highlighting of the butto
                     signin_michelleStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverSprite(signin_michelle))
+            else if (!isMouseOverSprite(m_context,signin_michelle))
             {
                 signin_michelleStates.isSelected=false;
             }
             
             //noah
-            if (isMouseOverSprite(signin_noah))
+            if (isMouseOverSprite(m_context,signin_noah))
             {
                 signin_noahStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -153,12 +127,12 @@ void SignIn::ProcessInput() //handle the selection and highlighting of the butto
                     signin_noahStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverSprite(signin_noah))
+            else if (!isMouseOverSprite(m_context,signin_noah))
             {
                 signin_noahStates.isSelected=false;
             }
             //kate
-            if (isMouseOverSprite(signin_kate))
+            if (isMouseOverSprite(m_context,signin_kate))
             {
                 signin_kateStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -166,7 +140,7 @@ void SignIn::ProcessInput() //handle the selection and highlighting of the butto
                     signin_kateStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverSprite(signin_kate))
+            else if (!isMouseOverSprite(m_context,signin_kate))
             {
                 signin_kateStates.isSelected=false;
             }
@@ -179,22 +153,23 @@ void SignIn::Update(const sf::Time &deltaTime)
     std::cout<<"void SignIn::Update()"<<std::endl;
 
     //main button
+    float ratio_toScale=1.2; 
     if (mainMenuButtonStates.isSelected) 
     {
-       mainMenuButton.setFillColor(sf::Color::Yellow);
+       mainMenuButton.setScale(ratio_toScale,ratio_toScale);
         if (mainMenuButtonStates.isPressed)
         {
             //go back to main menu
+            //m_context->m_states->PopCurrent();
             m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
             //m_context->m_states->PopAll();
         }
     }
     else if (!mainMenuButtonStates.isSelected) 
     {
-       mainMenuButton.setFillColor(sf::Color::White);
+       mainMenuButton.setScale(1.0,1.0);
     }
 
-    float ratio_toScale=1.2;
     //grace
     if (signin_graceStates.isSelected) 
     {

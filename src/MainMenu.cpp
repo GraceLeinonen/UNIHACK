@@ -26,17 +26,20 @@ MainMenu::~MainMenu()
 {
 }
 
-void MainMenu::display_instructions(AssetID font_name_enum, sf::Text& text, std::string title, int fontSize, float x_pos, float y_pos)
+bool MainMenu::isMouseOverSprite(std::shared_ptr<Context> &m_context, sf::Sprite sprite)
 {
-    
-    text.setFont(m_context->m_assets->GetFont(font_name_enum));
-    text.setString(title);
-    text.setFillColor(sf::Color::White);
-    text.setOrigin(text.getLocalBounds().width / 2,
-                           text.getLocalBounds().height / 2);
-    text.setPosition(x_pos,y_pos);
-    text.setCharacterSize(fontSize);
-}
+    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
+    return sprite.getGlobalBounds().contains(mousePos.x,mousePos.y);
+};
+void MainMenu::setTexture_addPosition(sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos)
+{
+    texture.loadFromFile(file_path); 
+    sprite.setTexture(texture); //or background_object=sf::Sprite(texture);
+    sprite.setOrigin(sprite.getLocalBounds().width / 2,
+                        sprite.getLocalBounds().height / 2);
+    sprite.setPosition(x_pos,y_pos);
+};
+
 
 void MainMenu::Init()
 {
@@ -50,40 +53,13 @@ void MainMenu::Init()
     background.loadFromFile("assets/texture/main_menu_background.png");
     background_object=sf::Sprite(background);
 
-    // Display Title
-    display_instructions(FONT1,
-                        gameTitle,
-                        "It Takes A Village",
-                        70,
-                        m_context->m_window->getSize().x / 2 -100.0f,
-                        m_context->m_window->getSize().y / 2-100.0f);
-
 
     float under_border= m_context->m_window->getSize().y-70.0f;
-    //Display Sign in
-    display_instructions(FONT2,
-                        signInButton,
-                        "Sign in",
-                        30,
-                        m_context->m_window->getSize().x / 2,
-                        under_border);
-    
-    //Display Instruction
-    display_instructions(FONT2,
-                        instructionsButton,
-                        "Instructions",
-                        30,
-                        100.f,
-                        under_border);
-    
-    //Display Instruction
-    display_instructions(FONT2,
-                        exitButton,
-                        "Exit",
-                        30,
-                        m_context->m_window->getSize().x-100.0f,
-                        under_border);
-
+    //Display buttons
+   
+    setTexture_addPosition(instructionsButton, texture2, "assets/texture/mainmenuButton_instruction.png",160.0f, under_border);
+    setTexture_addPosition(signInButton, texture1, "assets/texture/mainmenuButton_login.png",480.0f, under_border);
+    setTexture_addPosition(exitButton, texture3, "assets/texture/mainmenuButton_exit.png",800.0f, under_border);
 
 }
 
@@ -97,18 +73,6 @@ Tutorial: dealing with Mouse events
 - 
 */
 
-bool MainMenu::isMouseOverText(sf::Text text)
-{
-    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
-    return text.getGlobalBounds().contains(mousePos.x,mousePos.y);
-}
-
-bool MainMenu::isMouseOverSprite(sf::Sprite sprite)
-{
-    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
-    return sprite.getGlobalBounds().contains(mousePos.x,mousePos.y);
-}
-
 void MainMenu::ProcessInput() //handle the selection and highlighting of the buttons
 {
     std::cout<<"void MainMenu::ProcessInput()"<<std::endl;
@@ -121,7 +85,7 @@ void MainMenu::ProcessInput() //handle the selection and highlighting of the but
         }
         else 
         {
-            if (isMouseOverText(signInButton))
+            if (isMouseOverSprite(m_context,signInButton))
             {
                 signInButtonStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -129,12 +93,12 @@ void MainMenu::ProcessInput() //handle the selection and highlighting of the but
                     signInButtonStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverText(signInButton))
+            else if (!isMouseOverSprite(m_context, signInButton))
             {
                 signInButtonStates.isSelected=false;
             }
             
-            if (isMouseOverText(instructionsButton))
+            if (isMouseOverSprite(m_context, instructionsButton))
             {
                 instructionsButtonStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -142,12 +106,12 @@ void MainMenu::ProcessInput() //handle the selection and highlighting of the but
                     instructionsButtonStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverText(instructionsButton))
+            else if (!isMouseOverSprite(m_context, instructionsButton))
             {
                 instructionsButtonStates.isSelected=false;
             }  
 
-            if (isMouseOverText(exitButton))
+            if (isMouseOverSprite(m_context, exitButton))
             {
                 exitButtonStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -155,7 +119,7 @@ void MainMenu::ProcessInput() //handle the selection and highlighting of the but
                     exitButtonStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverText(exitButton))
+            else if (!isMouseOverSprite(m_context, exitButton))
             {
                 exitButtonStates.isSelected=false;
             } 
@@ -169,31 +133,31 @@ void MainMenu::Update(const sf::Time &deltaTime)
     std::cout<<"MainMenu.cpp: void MainMenu::Update"<<std::endl;
     std::cout<<"MainMenu.cpp: instructionsButtonStates.isPressed"<<instructionsButtonStates.isPressed<<std::endl;
     std::cout<<"MainMenu.cpp: exitButtonStates.isPressed"<<exitButtonStates.isPressed<<std::endl;
+    float ratio_toScale=1.2; 
     if (signInButtonStates.isSelected) 
     {
-       signInButton.setFillColor(sf::Color::Yellow);
+       signInButton.setScale(ratio_toScale,ratio_toScale);
     }
     else if (!signInButtonStates.isSelected) 
     {
-       signInButton.setFillColor(sf::Color::White);
+       signInButton.setScale(1.0,1.0);
     }
 
     if (instructionsButtonStates.isSelected)
     {
-        instructionsButton.setFillColor(sf::Color::Yellow);
+        instructionsButton.setScale(ratio_toScale,ratio_toScale);
     }
     else if (!instructionsButtonStates.isSelected)
     {
-        instructionsButton.setFillColor(sf::Color::White);
+        instructionsButton.setScale(1.0,1.0);
     }
     if (exitButtonStates.isSelected)
     {
-        exitButton.setFillColor(sf::Color::Yellow);
+        exitButton.setScale(ratio_toScale,ratio_toScale);
     }
     else if (!exitButtonStates.isSelected)
     {
-        exitButton.setFillColor(sf::Color::White);
-        exitButton.setFillColor(sf::Color::White);
+        exitButton.setScale(1.0,1.0);
     }
 
     if (signInButtonStates.isPressed)
@@ -217,7 +181,6 @@ void MainMenu::Draw()
     std::cout<<"void MainMenu::Draw()"<<std::endl;
     m_context->m_window->clear();
     m_context->m_window->draw(background_object);
-    m_context->m_window->draw(gameTitle);
     m_context->m_window->draw(signInButton);
     m_context->m_window->draw(instructionsButton);
     m_context->m_window->draw(exitButton);

@@ -14,10 +14,11 @@ class MainMenu : public Engine::State
 private:
     std::shared_ptr<Context> m_context;
 
-    sf::Text gameTitle;
-    sf::Text signInButton;
-    sf::Text instructionsButton;
-    sf::Text exitButton;
+    sf::Texture texture1, texture2, texture3;
+    sf::Sprite signInButton;
+    sf::Sprite instructionsButton;
+    sf::Sprite exitButton;
+
     TextButtonStates signInButtonStates;
     TextButtonStates instructionsButtonStates;
     TextButtonStates exitButtonStates;
@@ -37,9 +38,7 @@ public:
     void Update(const sf::Time& deltaTime) override;
     void Draw() override;
 
-    //other functions
-    void display_instructions(AssetID font_name_enum, sf::Text& text, std::string title, int fontSize, float x_pos, float y_pos);
-    bool isMouseOverText(sf::Text text);
-    bool isMouseOverSprite(sf::Sprite sprite);
+    bool isMouseOverSprite(std::shared_ptr<Context> &m_context, sf::Sprite sprite);
+    void setTexture_addPosition(sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos);
 
 };

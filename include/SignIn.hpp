@@ -13,7 +13,8 @@ class SignIn : public Engine::State
 private:
     std::shared_ptr<Context> m_context;
 
-    sf::Text mainMenuButton;
+    sf::Texture mainMenuTexture;
+    sf::Sprite mainMenuButton;
     TextButtonStates mainMenuButtonStates;
 
     //add background image
@@ -35,16 +36,13 @@ public:
     SignIn(std::shared_ptr<Context> &context);
     ~SignIn();
 
-    
     void Init() override;
     void ProcessInput() override;
     void Update(const sf::Time& deltaTime) override;
     void Draw() override;
 
-    //other functions
-    void display_text(AssetID font_name_enum, sf::Text& text, std::string title, int fontSize, float x_pos, float y_pos);
-    bool isMouseOverText(sf::Text text);
-    bool isMouseOverSprite(sf::Sprite sprite);
-    void setTexture_addPosition( sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos);
+    bool isMouseOverSprite(std::shared_ptr<Context> &m_context, sf::Sprite sprite);
+    void setTexture_addPosition(sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos);
+
 
 };

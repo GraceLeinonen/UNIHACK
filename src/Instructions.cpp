@@ -16,17 +16,19 @@ Instructions::~Instructions()
 {
 }
 
-void Instructions::display_text(AssetID font_name_enum, sf::Text& text, std::string title, int fontSize, float x_pos, float y_pos)
+bool Instructions::isMouseOverSprite(std::shared_ptr<Context> &m_context, sf::Sprite sprite)
 {
-    
-    text.setFont(m_context->m_assets->GetFont(font_name_enum));
-    text.setString(title);
-    text.setFillColor(sf::Color::White);
-    text.setOrigin(text.getLocalBounds().width / 2,
-                           text.getLocalBounds().height / 2);
-    text.setPosition(x_pos,y_pos);
-    text.setCharacterSize(fontSize);
-}
+    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
+    return sprite.getGlobalBounds().contains(mousePos.x,mousePos.y);
+};
+void Instructions::setTexture_addPosition(sf::Sprite &sprite, sf::Texture &texture, std::string file_path,float x_pos, float y_pos)
+{
+    texture.loadFromFile(file_path); 
+    sprite.setTexture(texture); //or background_object=sf::Sprite(texture);
+    sprite.setOrigin(sprite.getLocalBounds().width / 2,
+                        sprite.getLocalBounds().height / 2);
+    sprite.setPosition(x_pos,y_pos);
+};
 
 void Instructions::Init()
 {
@@ -40,24 +42,8 @@ void Instructions::Init()
     background_object=sf::Sprite(background);
 
     // Display mainmenuButton
-    display_text(FONT2,
-                        mainMenuButton,
-                        "Go Back to Main Menu",
-                        50,
-                        m_context->m_window->getSize().x / 2 -50.0f,
-                        m_context->m_window->getSize().y / 2- 40.0f);
-}
-
-bool Instructions::isMouseOverText(sf::Text text)
-{
-    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
-    return text.getGlobalBounds().contains(mousePos.x,mousePos.y);
-}
-
-bool Instructions::isMouseOverSprite(sf::Sprite sprite)
-{
-    sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_context->m_window));
-    return sprite.getGlobalBounds().contains(mousePos.x,mousePos.y);
+    float horizontal_position = m_context->m_window->getSize().x / 2;
+    setTexture_addPosition(mainMenuButton,mainMenuTexture,"assets/texture/instructions_mainmenu_button.png",horizontal_position,m_context->m_window->getSize().y-50.0f); 
 }
 
 void Instructions::ProcessInput() //handle the selection and highlighting of the buttons
@@ -72,7 +58,7 @@ void Instructions::ProcessInput() //handle the selection and highlighting of the
         }
         else 
         {
-            if (isMouseOverText(mainMenuButton))
+            if (isMouseOverSprite(m_context,mainMenuButton))
             {
                 mainMenuButtonStates.isSelected=true;
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -80,7 +66,7 @@ void Instructions::ProcessInput() //handle the selection and highlighting of the
                     mainMenuButtonStates.isPressed=true;
                 }
             }
-            else if (!isMouseOverText(mainMenuButton))
+            else if (!isMouseOverSprite(m_context,mainMenuButton))
             {
                 mainMenuButtonStates.isSelected=false;
             }
@@ -94,7 +80,7 @@ void Instructions::Update(const sf::Time &deltaTime)
     std::cout<<"void SignIn::Update()"<<std::endl;
     if (mainMenuButtonStates.isSelected) 
     {
-       mainMenuButton.setFillColor(sf::Color::Yellow);
+       mainMenuButton.setScale(1.2,1.2);
         if (mainMenuButtonStates.isPressed)
         {
             //go back to main menu
@@ -104,7 +90,7 @@ void Instructions::Update(const sf::Time &deltaTime)
     }
     else if (!mainMenuButtonStates.isSelected) 
     {
-       mainMenuButton.setFillColor(sf::Color::White);
+       mainMenuButton.setScale(1.0,1.0);
     }
 
 }

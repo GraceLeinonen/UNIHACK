@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/System/Time.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 namespace Engine
 {
@@ -15,9 +14,9 @@ namespace Engine
         virtual void Update(const sf::Time& deltaTime) = 0; 
         virtual void Draw() = 0;
 
+        //these two functions are only needed for the GamePlay state. They are to be defined in the future when the Pause and Resume features in Game states are done.
         virtual void Pause(){};
         virtual void Start(){};
-        
     };
 }
 

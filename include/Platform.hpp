@@ -14,7 +14,7 @@
 class Platform : public Engine::State
 {
 public:
-  Platform(std::shared_ptr<Context>& context);
+  Platform(std::shared_ptr<Context>& context, std::string name);
   ~Platform() override;
 
   void Init() override;

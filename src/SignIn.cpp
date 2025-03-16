@@ -203,7 +203,8 @@ void SignIn::Update(const sf::Time &deltaTime)
         if (signin_graceStates.isPressed)
         {
             //go to platform under this user
-            m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
+            m_context->m_states->Add(std::make_unique<Platform>(m_context, "grace"));
+            signin_graceStates.isPressed = false;
         }
     }
     else if (!signin_graceStates.isSelected) 
@@ -219,7 +220,8 @@ void SignIn::Update(const sf::Time &deltaTime)
         if (signin_michelleStates.isPressed)
         {
             //go to platform under this user
-            m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
+            m_context->m_states->Add(std::make_unique<Platform>(m_context, "michelle"));
+            signin_michelleStates.isPressed = false;
         }
     }
     else if (!signin_michelleStates.isSelected) 
@@ -235,7 +237,8 @@ void SignIn::Update(const sf::Time &deltaTime)
         if (signin_noahStates.isPressed)
         {
             //go to platform under this user
-            m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
+            m_context->m_states->Add(std::make_unique<Platform>(m_context, "noah"));
+            signin_noahStates.isPressed = false;
         }
     }
     else if (!signin_noahStates.isSelected) 
@@ -251,7 +254,8 @@ void SignIn::Update(const sf::Time &deltaTime)
         if (signin_kateStates.isPressed)
         {
             //go to platform under this user
-            m_context->m_states->Add(std::make_unique<MainMenu>(m_context), true);
+            m_context->m_states->Add(std::make_unique<Platform>(m_context, "kate"));
+            signin_kateStates.isPressed = false;
         }
     }
     else if (!signin_kateStates.isSelected) 

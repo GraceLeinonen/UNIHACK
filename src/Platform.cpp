@@ -1,6 +1,6 @@
 #include "Platform.hpp"
 
-Platform::Platform(std::shared_ptr<Context> &context)
+Platform::Platform(std::shared_ptr<Context> &context, std::string name)
   :
   m_context(context)
 {
@@ -11,10 +11,11 @@ Platform::Platform(std::shared_ptr<Context> &context)
 	tileTex.loadFromFile("assets/texture/testTile.png");
   tile = sf::Sprite(tileTex);
   
-	charTex.loadFromFile("assets/texture/testAnim.png");
+	charTex.loadFromFile("assets/texture/" + name + ".png");
   character = sf::Sprite(charTex);
-  character.setOrigin(0.5f * 6.0f * sf::Vector2f(8.0f, 8.0f));
-  charAnim = Animator(&character, 6 * sf::Vector2i(8, 8), 0, 250);
+  character.setOrigin(0.5f * (sf::Vector2f)charTex.getSize());
+  character.setScale({6.0f, 6.0f});
+  // charAnim = Animator(&character, 0, 0, 250);
 }
 
 Platform::~Platform()
@@ -68,23 +69,23 @@ void Platform::Update(const sf::Time &deltaTime)
 
   character.move((float)deltaTime.asMilliseconds() * move);
 
-  if (move == sf::Vector2f(0.0f, 0.0f) && isCharMoving)
-  {
-    charAnim.setAnimation(0, 250);
-    isCharMoving = false;
-  }
-  else if (move != sf::Vector2f(0.0f, 0.0f) && !isCharMoving)
-  {
-    charAnim.setAnimation(1, 100);
-    isCharMoving = true;
-  }
+  // if (move == sf::Vector2f(0.0f, 0.0f) && isCharMoving)
+  // {
+  //   charAnim.setAnimation(0, 250);
+  //   isCharMoving = false;
+  // }
+  // else if (move != sf::Vector2f(0.0f, 0.0f) && !isCharMoving)
+  // {
+  //   charAnim.setAnimation(1, 100);
+  //   isCharMoving = true;
+  // }
 
-  charAnim.update(deltaTime);
+  // charAnim.update(deltaTime);
 
   // Clip character within world bounds
   sf::Vector2f pos = character.getPosition();
 
-  pos += clipWithinBounds(pos, 0.5f * 6.0f * sf::Vector2f(8.0f, 8.0f), worldRect);
+  pos += clipWithinBounds(pos, 6.0f * 0.5f * (sf::Vector2f)charTex.getSize(), worldRect);
   character.setPosition(pos);
 
   // Clip camera within world bounds

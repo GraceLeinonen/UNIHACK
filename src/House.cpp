@@ -38,6 +38,7 @@ void House::populateImagesForHouse(ImageStore imageStore, std::string habitName)
 
 void House::Init() {
 
+    //! NEED TO FIX THIS!!!!!!!!!!
     populateImagesForHouse(imageStore, "brushTeeth"); //! NOTE BRUSHTEETH HARDCODED IN - WILL CHANGE HOUSES CLASS TO IT CONTAINS HABITS MEMBER OR DO A SUBCLASS
 
     // first four files in imageFiles are background and buttons

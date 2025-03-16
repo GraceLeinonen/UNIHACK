@@ -7,6 +7,7 @@
 
 #include "State.hpp"
 #include "Game.hpp"
+#include "Platform.hpp"
 
 class MainMenu : public Engine::State
 {

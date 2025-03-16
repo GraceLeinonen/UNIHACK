@@ -193,6 +193,7 @@ void MainMenu::Update(const sf::Time &deltaTime)
     else if (!exitButtonStates.isSelected)
     {
         exitButton.setFillColor(sf::Color::White);
+        exitButton.setFillColor(sf::Color::White);
     }
 
     if (signInButtonStates.isPressed)

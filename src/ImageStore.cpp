@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <filesystem>
 
+ImageStore::ImageStore() {}
+
 void ImageStore::readImageDirectory(std::string folderPath) {
 
  // Iterate through the directory
@@ -33,6 +35,10 @@ void ImageStore::readImageDirectory(std::string folderPath) {
     }
     }
 }
+}
+
+std::unordered_map<Habits,std::vector<std::filesystem::path>> ImageStore::getHabitMap() {
+    return habitMap;
 }
 
 bool ImageStore::startsWith(const std::string& str, const std::string& prefix) {

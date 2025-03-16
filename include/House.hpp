@@ -10,18 +10,27 @@
 #include "State.hpp"
 #include "Game.hpp"
 #include "Image.hpp"
+#include "ImageStore.hpp"
+#include "Habits.hpp"
 
 class House : public Engine::State {
 
     private:
+
+    // habit
+    Habits habit;
+
     std::shared_ptr<Context> m_context;
 
-    // add image buttons
-    sf::Texture addImageButton1;
-    sf::Sprite addImageButton1_object;
+    // buttons
+    sf::Texture previousImage;
+    sf::Sprite previousImage_object;
 
-    sf::Texture addImageButton2;
-    sf::Sprite addImageButton2_object;
+    sf::Texture nextImage;
+    sf::Sprite nextImage_object;
+
+    sf::Texture toVillage;
+    sf::Sprite toVillage_object;
 
     //add background image
     sf::Texture background;
@@ -29,15 +38,18 @@ class House : public Engine::State {
 
     //create images
     Image image1;
-    Image image2;    
+    Image image2;   
+    
+    int imageIndex1;
+    int imageIndex2;
 
     // buttons selected and pressed
-    int m_isButtonSelected = 0;
-    int m_isButtonPressed = 0;
+    int m_isButtonSelected;
+    int m_isButtonPressed;
 
-    std::string folderPath = "assets/textures"; // Replace with the path to your folder
-    std::string targetFileName = "image.jpg"; // Replace with the desired file name
-    std::vector<std::filesystem::path> matchingFiles; // To store matched files
+    // vector for photos
+    ImageStore imageStore;
+    std::vector<std::string> imageFiles;
 
     public:
     House(std::shared_ptr<Context> &context);
@@ -47,5 +59,6 @@ class House : public Engine::State {
     void ProcessInput() override;
     void Update(const sf::Time& deltaTime) override;
     void Draw() override;
-    
+
+    void populateImagesForHouse(ImageStore imageStore, std::string habitName);
 };

@@ -14,6 +14,8 @@ class ImageStore {
     std::unordered_map<Habits,std::vector<std::filesystem::path>> habitMap;
 
     public:
+    ImageStore();
     void readImageDirectory(std::string folderPath);
     bool startsWith(const std::string& str, const std::string& prefix);
+    std::unordered_map<Habits,std::vector<std::filesystem::path>> getHabitMap();
 };

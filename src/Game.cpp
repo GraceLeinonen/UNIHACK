@@ -2,10 +2,11 @@
 
 #include "Game.hpp"
 #include "House.hpp"
-#include "Habits.hpp"
+#include "ImageStore.hpp"
 
 Game::Game()
 {
+
     //initialise m_context. Use constructor of context
     m_context=std::make_shared<Context>(); //since m_context is a shared pointer, use std::make_shared
     
